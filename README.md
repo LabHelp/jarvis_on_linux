@@ -1,12 +1,13 @@
-# JARVIS Linux
+# Jarvis on Linux
 
-Applicazione Python con GUI (tkinter) per il riconoscimento vocale e l'esecuzione di comandi tramite interfaccia grafica su Debian 13 Trixie (XFCE).
+Applicazione Python con GUI (tkinter) per il riconoscimento vocale di un prompt descrittivo, la sua trascrizione e l'esecuzione di comandi forniti in risposta da applicazione Shell Gpt. Testato su Debian 13 Trixie (XFCE).
 
 ## Descrizione
 
-L'app fornisce un bottone **PTT (Push-to-Talk)**: tenendolo premuto si registra l'audio tramite il microfono, che viene trascritto usando l'API **Whisper** (tramite provider configurabile), quindi passato a **ShellGPT (sgpt)** per generare comandi shell eseguibili. I comandi generati appaiono nella GUI e, cliccando il pulsante accanto, vengono eseguiti in un nuovo terminale `xfce4-terminal`.
+L'app dispone di un bottone **PTT (Push-to-Talk)**: tenendolo premuto si registra l'audio tramite il microfono, che viene trascritto usando l'API **Whisper** (tramite provider configurabile), quindi passato a **ShellGPT (sgpt)** per generare comandi shell eseguibili. 
+I comandi generati appaiono nella GUI e, cliccando il pulsante accanto, vengono eseguiti in un nuovo terminale `xfce4-terminal`.
 
-La trascrizione e la generazione dei comandi usano **due provider e chiavi indipendenti**, per permettere cost tracking separato e massima flessibilita' nel cambio provider.
+La trascrizione e la generazione dei comandi usano **due provider e chiavi indipendenti**, per permettere cost tracking separato e massima flessibilita' nell'eventuale cambio di provider.
 
 ## Prerequisiti
 
@@ -90,11 +91,11 @@ python main.py
 
 ## Licenza e Note (anche Legali si sa mai...)
 
-- Questo progetto è un fork di https://github.com/morrolinux/jarvis_linux
-  L'originale non presentava alcuna restrizione di licenza al momento del fork. 
-  Trattandosi di un progetto a scopo didattico non c'è nessuna pretesa di reale utilizzo. 
+- Trattandosi di un progetto a scopo didattico non c'è nessuna pretesa di reale utilizzo. 
   Proprio in ottica educativa si è studiato i pro e contro del refactoring tramite un agente IA via console, semi-integrato con IDE VSCode based e utilizzo di modelli LLM gratuiti tramite router AI provider.
 - Come ben chiarito dall'autore iniziale https://morrolinux.it a cui devo (tanto) delle mie (poche) conoscenze riguardo ai sistemi Linux non deve essere usato come un oracolo, ma come una sorta di help evoluto che parte dai concetti per arrivare alla sintassi. 
 Fate sempre attenzione a cosa eseguite via terminale, lo consigli un LLM (o vostro cugino) è sempre sotto la vostra responsabilità !
-- Le modifiche da me effettuate sono rilasciate sotto licenza MIT. 
+- Questo progetto è un fork di https://github.com/morrolinux/jarvis_linux 
+L'originale non presentava alcuna restrizione di licenza al momento del fork.
+Le modifiche da me effettuate sono rilasciate sotto licenza MIT. 
 Il codice originale appartiene all'autore [morrolinux · GitHub](https://github.com/morrolinux)
