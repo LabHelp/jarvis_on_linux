@@ -1,0 +1,5 @@
+maxtokens: 2048
+model: openai/gpt-4o-mini
+stream: false
+temperature: "1"
+topp: "1"
