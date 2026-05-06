@@ -68,7 +68,6 @@ echo "     export OPENAI_API_BASE='https://openrouter.ai/api/v1'"
 echo ""
 echo "   esegui source ~/.bashrc per aggiornare environment"
 echo ""
-
 echo "==> Installazione completata!"
 echo ""
 echo "  usa sgpt config show per vedere la configurazione di shellgpt"

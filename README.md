@@ -91,6 +91,10 @@ python main.py
 ## Licenza e Note (anche Legali si sa mai...)
 
 - Questo progetto è un fork di https://github.com/morrolinux/jarvis_linux
-  L'originale non presentava alcuna restrizione di licenza al momento del fork. Trattandosi di un progetto a scopo didattico non c'è nessuna pretesa di reale utilizzo continuativo, per lo meno allo stato di fatto attuale. Proprio in ottica educativa quello che si può imparare in questo caso sono i pro e i contro che un agente IA semi-integrato con un IDE ed a costo zero può dare riservare a chi non abbia che poche conoscenze in ambito di sviluppo.  
-- Come ben chiarito dall'autore iniziale https://morrolinux.it a cui devo (tanto) delle mie (poche) conoscenze riguardo ai sistemi Linux non è il caso di usarlo come un oracolo, ma come una sorta di help evoluto che parta dai concetti per arrivare alla sintassi. Per dirla ancora più chiara fatte sempre attenzione a cosa eseguite, lo consigli un LLM (o vostro cugino) è sempre sotto la vostra responsabilità !
-- Le modifiche da me effettuate sono rilasciate sotto licenza MIT. Il codice originale appartiene all'autore [morrolinux · GitHub](https://github.com/morrolinux)
+  L'originale non presentava alcuna restrizione di licenza al momento del fork. 
+  Trattandosi di un progetto a scopo didattico non c'è nessuna pretesa di reale utilizzo. 
+  Proprio in ottica educativa si è studiato i pro e contro del refactoring tramite un agente IA via console, semi-integrato con IDE VSCode based e utilizzo di modelli LLM gratuiti tramite router AI provider.
+- Come ben chiarito dall'autore iniziale https://morrolinux.it a cui devo (tanto) delle mie (poche) conoscenze riguardo ai sistemi Linux non deve essere usato come un oracolo, ma come una sorta di help evoluto che parte dai concetti per arrivare alla sintassi. 
+Fate sempre attenzione a cosa eseguite via terminale, lo consigli un LLM (o vostro cugino) è sempre sotto la vostra responsabilità !
+- Le modifiche da me effettuate sono rilasciate sotto licenza MIT. 
+Il codice originale appartiene all'autore [morrolinux · GitHub](https://github.com/morrolinux)
