@@ -1,0 +1,21 @@
+# Escludi file di sistema
+.DS_Store
+Thumbs.db
+
+# Escludi cartelle di dipendenze o build
+node_modules/
+dist/
+bin/
+
+# Escludi la cartella di configurazione con le API di claude code
+.claude/
+
+# Escludi file di configurazione sensibili
+venv/
+.env
+config.json
+
+# Escludi tutti i file di log e file vecchi o backup
+*.log
+*.old
+*.bak
