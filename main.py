@@ -54,8 +54,8 @@ _DANGEROUS_PATTERNS = [
 ]
 DANGEROUS_REGEX = [(re.compile(pattern, re.IGNORECASE), label) for pattern, label in _DANGEROUS_PATTERNS]
 
-# RMS threshold — below this the audio is considered silent (skip API call)
-SILENCE_THRESHOLD = 0.005
+# dB threshold (0-100 scale) — below this the audio is considered silent
+SILENCE_DB_THRESHOLD = 20
 
 # Meter update interval in ms
 METER_INTERVAL_MS = 50
@@ -173,8 +173,8 @@ class SpeechRecognitionApp:
 
         full_audio = np.concatenate(self.audio_data)
         rms = math.sqrt(float(np.mean(full_audio.astype(np.float64) ** 2)))
-        if rms < SILENCE_THRESHOLD:
-            self.label.config(text=f"(silent — RMS {rms:.4f} < {SILENCE_THRESHOLD})")
+        if rms < SILENCE_DB_THRESHOLD:
+            self.label.config(text=f"(silent — RMS {rms:.4f} < {SILENCE_DB_THRESHOLD})")
             self.audio_data = []
             return
 
