@@ -96,15 +96,14 @@ python main.py
 - I comandi generati vengono eseguiti in un terminale XFCE separato (`xfce4-terminal --hold`)
 - Il formato audio inviato all'API e' **WAV con encoding base64** in JSON
 - Prima dell'esecuzione, ogni comando viene analizzato tramite regex per individuare pattern pericolosi (es. `rm`, `sudo`, `chmod`, `mkfs`, `dd`, fork bomb, `curl | sh`, `git push --force`, `iptables`, `fdisk`, ecc.). In caso di match il comando appare in rosso e viene richiesta conferma esplicita
-  
 
 ## Licenza e Note (anche Legali si sa mai...)
 
 - Trattandosi di un progetto a scopo didattico non c'e' nessuna pretesa di reale utilizzo. 
-  Proprio in ottica educativa si e' studiato i pro e contro del refactoring tramite un agente IA via console, semi-integrato con IDE VSCode based e utilizzo di modelli LLM gratuiti tramite router AI provider.
+  Proprio in ottica educativa si e' studiato i pro e contro del refactoring tramite un agente IA via console, (semi) integrato con IDE VSCode based e utilizzo di modelli LLM gratuiti nella versione 0.2.0 ed a pagamento nella 0.3.0 sempre tramite router AI provider.
 - Come ben chiarito dall'autore iniziale https://morrolinux.it a cui devo (tanto) delle mie (poche) conoscenze riguardo ai sistemi Linux non deve essere usato come un oracolo, ma come una sorta di help evoluto che parte dai concetti per arrivare alla sintassi. 
-Fate sempre attenzione a cosa eseguite via terminale, lo consigli un LLM (o vostro cugino) e' sempre sotto la vostra responsabilita' !
+  Fate sempre attenzione a cosa eseguite via terminale, lo consigli un LLM (o vostro cugino) e' sempre sotto la vostra responsabilita' !
 - Questo progetto e' un fork di https://github.com/morrolinux/jarvis_linux 
-L'originale non presentava alcuna restrizione di licenza al momento del fork.
-Le modifiche da me effettuate sono rilasciate sotto licenza MIT. 
-Il codice originale appartiene all'autore [morrolinux · GitHub](https://github.com/morrolinux)
+  L'originale non presentava alcuna restrizione di licenza al momento del fork.
+  Le modifiche da me effettuate sono rilasciate sotto licenza MIT. 
+  Il codice originale appartiene all'autore [morrolinux · GitHub](https://github.com/morrolinux)
