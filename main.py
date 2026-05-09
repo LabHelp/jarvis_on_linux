@@ -54,8 +54,10 @@ _DANGEROUS_PATTERNS = [
 ]
 DANGEROUS_REGEX = [(re.compile(pattern, re.IGNORECASE), label) for pattern, label in _DANGEROUS_PATTERNS]
 
-# dB threshold (0-100 scale) — below this the audio is considered silent
-SILENCE_DB_THRESHOLD = 20
+# Raw int16 RMS threshold — below this the audio is considered silent.
+# Int16 samples range ±32767; a quiet room typically lands at RMS 1–10,
+# soft speech around 50–200.  20 rejects pure background noise reliably.
+SILENCE_RMS_THRESHOLD = 20
 
 # Meter update interval in ms
 METER_INTERVAL_MS = 50
@@ -84,7 +86,7 @@ class SpeechRecognitionApp:
         )
 
         # --- Row 1: Volume meter bar ---
-        self.meter_canvas = tk.Canvas(root, height=20, bg="black", highlightthickness=0, bd=0)
+        self.meter_canvas = tk.Canvas(root, height=50, bg="black", highlightthickness=0, bd=0)
         self.meter_canvas.grid(row=1, column=0, columnspan=2, sticky="nsew")
 
         # --- Row 2: STT output ---
@@ -173,8 +175,8 @@ class SpeechRecognitionApp:
 
         full_audio = np.concatenate(self.audio_data)
         rms = math.sqrt(float(np.mean(full_audio.astype(np.float64) ** 2)))
-        if rms < SILENCE_DB_THRESHOLD:
-            self.label.config(text=f"(silent — RMS {rms:.4f} < {SILENCE_DB_THRESHOLD})")
+        if rms < SILENCE_RMS_THRESHOLD:
+            self.label.config(text=f"(silent — RMS {rms:.4f} < {SILENCE_RMS_THRESHOLD})")
             self.audio_data = []
             return
 
@@ -207,25 +209,59 @@ class SpeechRecognitionApp:
             self._meter_job = self.root.after(METER_INTERVAL_MS, self._update_meter)
             return
 
-        # Clamp the RMS to a display range (0.0 – 0.05 maps well for a mic)
-        level = min(self.current_rms / 0.05, 1.0)
-
-        # Color: green → yellow → red
-        if level < 0.5:
-            color = "#00cc00"
-        elif level < 0.8:
-            color = "#cccc00"
+        # Convert raw RMS to a dB-like value (0–100 scale)
+        if self.current_rms > 1e-9:
+            raw_db = 20 * math.log10(self.current_rms)
         else:
-            color = "#cc0000"
+            raw_db = -99
+        display_db = max(0.0, min(raw_db, 100.0))
 
-        fill_w = int(level * canvas_w)
-        if fill_w > 1:
-            self.meter_canvas.create_rectangle(0, 0, fill_w, canvas_h, fill=color, outline="")
+        # dB scale: 0–100, step 10 → 10 LEDs
+        led_on = int(display_db / 10)       # 0..9 when display_db < 100, 9 at 100
+        led_on = max(0, min(led_on, 9))
+
+        n_leds = 10
+        margin_x = 8
+        margin_y_top = 8
+        label_h = 14          # room for dB text at the bottom
+        gap = 4
+
+        usable_w = canvas_w - 2 * margin_x
+        led_w = (usable_w - (n_leds - 1) * gap) / n_leds
+        led_h = canvas_h - margin_y_top - label_h
+
+        # Color tables: green 0-4, yellow 5-7, red 8-9
+        _LED_COLORS_LIT   = ["#00ee00"] * 5 + ["#eeee00"] * 3 + ["#ee0000"] * 2
+        _LED_COLORS_DIM   = ["#003300"] * 5 + ["#333300"] * 3 + ["#330000"] * 2
+        _LED_COLORS_GLOW  = ["#88ff88"] * 5 + ["#ffff88"] * 3 + ["#ff8888"] * 2
+
+        for i in range(n_leds):
+            x0 = margin_x + i * (led_w + gap)
+            y0 = margin_y_top
+            x1 = x0 + led_w
+            y1 = y0 + led_h
+
+            if i <= led_on:
+                # Lit LED
+                self.meter_canvas.create_rectangle(
+                    x0, y0, x1, y1, fill=_LED_COLORS_LIT[i], outline="#666666", width=1,
+                )
+                # Top highlight to simulate LED dome
+                hl_h = max(led_h * 0.35, 2)
+                self.meter_canvas.create_rectangle(
+                    x0 + 1, y0 + 1, x1 - 1, y0 + hl_h,
+                    fill=_LED_COLORS_GLOW[i], outline="",
+                )
+            else:
+                # Unlit LED — dark, barely visible
+                self.meter_canvas.create_rectangle(
+                    x0, y0, x1, y1, fill=_LED_COLORS_DIM[i], outline="#1a1a1a", width=1,
+                )
 
         # dB label
-        db = 20 * math.log10(self.current_rms) if self.current_rms > 1e-9 else -99
         self.meter_canvas.create_text(
-            canvas_w // 2, canvas_h // 2, text=f"{db:.0f} dB", fill="white",
+            canvas_w // 2, canvas_h - 6,
+            text=f"{display_db:.0f} dB", fill="#aaaaaa", font=("sans", 8),
         )
 
         self._meter_job = self.root.after(METER_INTERVAL_MS, self._update_meter)
