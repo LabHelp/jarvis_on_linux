@@ -2,18 +2,21 @@
 .DS_Store
 Thumbs.db
 
-# Escludi cartelle di dipendenze o build
+# Escludi cartelle di dipendenze o build o cache
 node_modules/
 dist/
 bin/
+__pycache__/
 
-# Escludi la cartella di configurazione con le API di claude code
+# Escludi la cartella di configurazione di claude code e le sue direttive
 .claude/
+CLAUDE.md
 
-# Escludi file di configurazione sensibili
+# Escludi file di ambiente e configurazione sensibili
 venv/
 .env
 config.json
+settings.local.json
 
 # Escludi tutti i file di log e file vecchi o backup
 *.log
